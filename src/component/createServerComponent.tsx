@@ -7,11 +7,15 @@ import axios, { type AxiosRequestConfig } from 'axios';
 const defaultGlobal = Object.freeze({
   require: (moduleId: string) => {
     if (moduleId === 'react') {
-      // @ts-ignore
       return require('react');
     } else if (moduleId === 'react-native') {
-      // @ts-ignore
       return require('react-native');
+    } else if (moduleId === '@babel/runtime/helpers/typeof') {
+      return require('@babel/runtime/helpers/typeof');
+    } else if (moduleId === '@babel/runtime/helpers/interopRequireDefault') {
+      return require('@babel/runtime/helpers/interopRequireDefault');
+    } else if (moduleId === '@babel/runtime/helpers/slicedToArray') {
+      return require('@babel/runtime/helpers/slicedToArray');
     }
     return null;
   },
@@ -27,7 +31,6 @@ const createComponent =
         .map((key) => `var ${key} = ${globalName}.${key};`)
         .join('\n')}; const exports = {}; ${src}; return exports.default`
     )(global);
-
     return Component;
   };
 
@@ -53,6 +56,7 @@ const buildRSC =
         );
       }
     }
+    throw new Error(`[ServerComponent]: Source is invalid`);
   };
 
 const buildRequest =
@@ -61,9 +65,8 @@ const buildRequest =
   }: {
     readonly component: (src: string) => Promise<React.Component>;
   }) =>
-  async (uri: string) => {
+  async (uri: string, callback: RSCPromise<React.Component>) => {
     //const handler = completionHandler();
-
     try {
       const result = await axiosRequest({ url: uri, method: 'get' });
       const { data } = result;
@@ -72,19 +75,27 @@ const buildRequest =
           `[ServerComponent]: Expected string data, encountered ${typeof data}`
         );
       }
-
-      component(data);
+      const Component = await component(data);
+      return callback.resolve(Component);
     } catch (e) {
       console.log(`[ServerComponent]: Build Request caught error ${e}`);
+      return callback.reject(new Error(`${e.message}`));
     }
   };
 
 const buildURIForRSC =
-  ({ uriRequest }: { readonly uriRequest: (uri: string) => void }) =>
+  ({
+    uriRequest,
+  }: {
+    readonly uriRequest: (
+      uri: string,
+      callback: RSCPromise<React.Component>
+    ) => void;
+  }) =>
   (uri: string, callback: RSCPromise<React.Component>): void => {
-    const { resolve, reject } = callback;
+    //const { resolve, reject } = callback;
     // TODO: handle caching and queueing here
-    return uriRequest(uri);
+    return uriRequest(uri, callback);
   };
 
 export default function createServerComponent({
@@ -104,7 +115,12 @@ export default function createServerComponent({
     <RSC {...props} openRSC={openRSC} />
   );
 
+  const preloadServerComponent = async (uri: string): Promise<void> => {
+    await openRSC({ uri });
+  };
+
   return Object.freeze({
     ServerComponent,
+    preloadServerComponent,
   });
 }
