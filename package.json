@@ -33,7 +33,8 @@
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build",
     "release": "release-it",
-    "start:server": "node server/server.js"
+    "start:server": "node server/server.js",
+    "transpile:mock": "npx babel --presets=@babel/preset-env,@babel/preset-react ./server/Mocks/ExampleServerComponent.tsx -o ./server/Mocks/TranspiledExample.js"
   },
   "keywords": [
     "react-native",
