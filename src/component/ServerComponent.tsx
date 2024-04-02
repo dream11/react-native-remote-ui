@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { RSCProps } from '../@types';
+import { type RSCProps } from '../@types';
 
 export default function RSC({
   source,
   openRSC,
   fallbackComponent,
-  loadingComponent,
-  errorComponent,
+  loadingComponent = () => <React.Fragment />,
+  errorComponent = () => <React.Fragment />,
   ...extras
 }: RSCProps): JSX.Element {
   const [ServerComponent, setServerComponent] =
