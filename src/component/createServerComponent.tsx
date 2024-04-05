@@ -1,6 +1,6 @@
 /* eslint-disable no-new-func */
 import * as React from 'react';
-import type { RSCPromise, RSCConfig, RSCProps, RSCSource } from '../@types';
+import type { RSCPromise, RSCConfig, RSCSource, RSCProps } from '../@types';
 import RSC from './ServerComponent';
 import axios, { type AxiosRequestConfig } from 'axios';
 
@@ -98,11 +98,32 @@ const buildURIForRSC =
     return uriRequest(uri, callback);
   };
 
-export default function createServerComponent({
-  global = defaultGlobal,
-}: RSCConfig) {
-  //const handler = completionHandler();
+// function createServerComponent({
+//   global = defaultGlobal,
+// }: RSCConfig) {
+//   const component = createComponent(global);
 
+//   const uriRequest = buildRequest({ component });
+
+//   const openURI = buildURIForRSC({ uriRequest });
+
+//   const openRSC = buildRSC({ openURI });
+
+//   const ServerComponent = (props: RSCProps) => (
+//     <RSC {...props} openRSC={openRSC} />
+//   );
+
+//   const preloadServerComponent = async (uri: string): Promise<void> => {
+//     await openRSC({ uri });
+//   };
+
+//   return Object.freeze({
+//     ServerComponent,
+//     preloadServerComponent,
+//   });
+// }
+
+function create({ global }: RSCConfig) {
   const component = createComponent(global);
 
   const uriRequest = buildRequest({ component });
@@ -111,16 +132,24 @@ export default function createServerComponent({
 
   const openRSC = buildRSC({ openURI });
 
-  const ServerComponent = (props: RSCProps) => (
-    <RSC {...props} openRSC={openRSC} />
-  );
-
-  const preloadServerComponent = async (uri: string): Promise<void> => {
-    await openRSC({ uri });
-  };
-
+  const Component = (props: RSCProps) => <RSC {...props} openRSC={openRSC} />;
   return Object.freeze({
-    ServerComponent,
-    preloadServerComponent,
+    Component,
   });
 }
+
+const ServerComponent = ({
+  global = defaultGlobal,
+  source,
+}: RSCProps): JSX.Element | null => {
+  const { Component } = React.useMemo(() => {
+    return create({ global });
+  }, [global]);
+
+  if (source && Component) {
+    return <Component source={source} />;
+  }
+  return null;
+};
+
+export default ServerComponent;
