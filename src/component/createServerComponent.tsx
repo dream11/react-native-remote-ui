@@ -3,6 +3,9 @@ import * as React from 'react';
 import type { RSCPromise, RSCConfig, RSCSource, RSCProps } from '../@types';
 import RSC from './ServerComponent';
 import axios, { type AxiosRequestConfig } from 'axios';
+import ComponentCache from '../cache/componentCache';
+
+const cache = ComponentCache.getInstance<React.Component>();
 
 const defaultGlobal = Object.freeze({
   require: (moduleId: string) => {
@@ -76,8 +79,10 @@ const buildRequest =
         );
       }
       const Component = await component(data);
+      cache.set(uri, Component);
       return callback.resolve(Component);
     } catch (e) {
+      cache.set(uri, null);
       console.log(`[ServerComponent]: Build Request caught error ${e}`);
       return callback.reject(new Error(`${e.message}`));
     }
@@ -93,9 +98,16 @@ const buildURIForRSC =
     ) => void;
   }) =>
   (uri: string, callback: RSCPromise<React.Component>): void => {
-    //const { resolve, reject } = callback;
-    // TODO: handle caching and queueing here
-    return uriRequest(uri, callback);
+    const Component = cache.get(uri);
+    const { resolve, reject } = callback;
+    if (Component === null) {
+      return uriRequest(uri, callback);
+    } else if (typeof Component === 'function') {
+      return resolve(Component);
+    }
+    return reject(
+      new Error(`[RSC]: Component for uri "${uri}" could not be instantiated`)
+    );
   };
 
 function buildServerComponent({ global }: RSCConfig) {
