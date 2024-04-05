@@ -123,7 +123,7 @@ const buildURIForRSC =
 //   });
 // }
 
-function create({ global }: RSCConfig) {
+function createServerComponent({ global }: RSCConfig) {
   const component = createComponent(global);
 
   const uriRequest = buildRequest({ component });
@@ -143,7 +143,7 @@ const ServerComponent = ({
   source,
 }: RSCProps): JSX.Element | null => {
   const { Component } = React.useMemo(() => {
-    return create({ global });
+    return createServerComponent({ global });
   }, [global]);
 
   if (source && Component) {
