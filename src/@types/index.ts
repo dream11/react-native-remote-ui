@@ -1,7 +1,6 @@
-// export type RSCConfig = {
-//   readonly global?: any;
-//   readonly source?: RSCSource;
-// };
+export type RSCConfig = {
+  readonly global?: any;
+};
 
 export type RSCSource =
   | {

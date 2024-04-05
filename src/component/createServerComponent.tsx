@@ -98,47 +98,33 @@ const buildURIForRSC =
     return uriRequest(uri, callback);
   };
 
-// function createServerComponent({
-//   global = defaultGlobal,
-// }: RSCConfig) {
-//   const component = createComponent(global);
-
-//   const uriRequest = buildRequest({ component });
-
-//   const openURI = buildURIForRSC({ uriRequest });
-
-//   const openRSC = buildRSC({ openURI });
-
-//   const ServerComponent = (props: RSCProps) => (
-//     <RSC {...props} openRSC={openRSC} />
-//   );
-
-//   const preloadServerComponent = async (uri: string): Promise<void> => {
-//     await openRSC({ uri });
-//   };
-
-//   return Object.freeze({
-//     ServerComponent,
-//     preloadServerComponent,
-//   });
-// }
+function buildServerComponent({ global }: RSCConfig) {
+  const component = createComponent(global);
+  const uriRequest = buildRequest({ component });
+  const openURI = buildURIForRSC({ uriRequest });
+  return buildRSC({ openURI });
+}
 
 function createServerComponent({ global }: RSCConfig) {
-  const component = createComponent(global);
-
-  const uriRequest = buildRequest({ component });
-
-  const openURI = buildURIForRSC({ uriRequest });
-
-  const openRSC = buildRSC({ openURI });
-
-  const Component = (props: RSCProps) => <RSC {...props} openRSC={openRSC} />;
+  const Component = (props: RSCProps) => (
+    <RSC {...props} openRSC={buildServerComponent({ global })} />
+  );
   return Object.freeze({
     Component,
   });
 }
 
-const ServerComponent = ({
+export function preloadServerComponent({ global = defaultGlobal }: RSCConfig) {
+  const rsc = buildServerComponent({ global });
+  const preload = async (uri: string): Promise<void> => {
+    await rsc({ uri });
+  };
+  return Object.freeze({
+    preload,
+  });
+}
+
+export const ServerComponent = ({
   global = defaultGlobal,
   source,
 }: RSCProps): JSX.Element | null => {
@@ -151,5 +137,3 @@ const ServerComponent = ({
   }
   return null;
 };
-
-export default ServerComponent;
