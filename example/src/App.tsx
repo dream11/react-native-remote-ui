@@ -1,7 +1,8 @@
 import * as React from 'react';
-
-import { StyleSheet, View } from 'react-native';
-import { ServerComponent } from 'react-native-server-component';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './screens/HomeScreen';
+import DetailsScreen from './screens/DetailsScreen';
 
 // const { preload } = preloadServerComponent({});
 // (async () => {
@@ -12,23 +13,15 @@ import { ServerComponent } from 'react-native-server-component';
 //   }
 // })();
 
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ServerComponent source={{ uri: 'http://10.0.2.2:8080' }} />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});
