@@ -1,8 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, StyleSheet, Text, Pressable } from 'react-native';
 
-const ExampleServerComponent = () => {
+const ExampleServerComponent = ({
+  onAction,
+}: {
+  onAction: (action: any, payload: Record<string, any>) => void;
+}) => {
   const [catFact, setCatFact] = useState<string>('');
+
+  const onPress = useCallback(() => {
+    if (onAction) {
+      onAction('NAVIGATE', { route: 'DetailsScreen' });
+    }
+  }, [onAction]);
 
   useEffect(() => {
     fetch('https://catfact.ninja/fact')
@@ -15,6 +25,11 @@ const ExampleServerComponent = () => {
       <Text style={styles.hello}> Hello Server Component</Text>
       <Text style={styles.catFactsTitle}> Cat Facts </Text>
       <Text style={styles.facts}> {catFact} </Text>
+      <Pressable onPress={onPress}>
+        <View style={styles.button}>
+          <Text style={styles.text}> {`Navigation`} </Text>
+        </View>
+      </Pressable>
     </View>
   );
 };
@@ -39,6 +54,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: 'black',
     fontWeight: '400',
+  },
+  text: {
+    color: 'black',
+    fontWeight: '400',
+    alignContent: 'center',
+    textAlign: 'center',
+  },
+  button: {
+    height: 30,
+    width: 100,
+    marginTop: 20,
+    borderRadius: 3,
+    backgroundColor: '#65A765',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignSelf: 'center',
   },
 });
 

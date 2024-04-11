@@ -1,8 +1,11 @@
 /* eslint-disable no-new-func */
 import * as React from 'react';
-import type { RSCPromise, RSCConfig, RSCProps, RSCSource } from '../@types';
+import type { RSCPromise, RSCConfig, RSCSource, RSCProps } from '../@types';
 import RSC from './ServerComponent';
 import axios, { type AxiosRequestConfig } from 'axios';
+import ComponentCache from '../cache/componentCache';
+
+const cache = ComponentCache.getInstance<React.Component>();
 
 const defaultGlobal = Object.freeze({
   require: (moduleId: string) => {
@@ -76,8 +79,10 @@ const buildRequest =
         );
       }
       const Component = await component(data);
+      cache.set(uri, Component);
       return callback.resolve(Component);
     } catch (e) {
+      cache.set(uri, null);
       console.log(`[ServerComponent]: Build Request caught error ${e}`);
       return callback.reject(new Error(`${e.message}`));
     }
@@ -93,34 +98,55 @@ const buildURIForRSC =
     ) => void;
   }) =>
   (uri: string, callback: RSCPromise<React.Component>): void => {
-    //const { resolve, reject } = callback;
-    // TODO: handle caching and queueing here
-    return uriRequest(uri, callback);
+    const Component = cache.get(uri);
+    const { resolve, reject } = callback;
+    if (Component === null) {
+      return uriRequest(uri, callback);
+    } else if (typeof Component === 'function') {
+      return resolve(Component);
+    }
+    return reject(
+      new Error(`[RSC]: Component for uri "${uri}" could not be instantiated`)
+    );
   };
 
-export default function createServerComponent({
-  global = defaultGlobal,
-}: RSCConfig) {
-  //const handler = completionHandler();
-
+function buildServerComponent({ global }: RSCConfig) {
   const component = createComponent(global);
-
   const uriRequest = buildRequest({ component });
-
   const openURI = buildURIForRSC({ uriRequest });
+  return buildRSC({ openURI });
+}
 
-  const openRSC = buildRSC({ openURI });
-
-  const ServerComponent = (props: RSCProps) => (
-    <RSC {...props} openRSC={openRSC} />
+function createServerComponent({ global }: RSCConfig) {
+  const Component = (props: RSCProps) => (
+    <RSC {...props} openRSC={buildServerComponent({ global })} />
   );
-
-  const preloadServerComponent = async (uri: string): Promise<void> => {
-    await openRSC({ uri });
-  };
-
   return Object.freeze({
-    ServerComponent,
-    preloadServerComponent,
+    Component,
   });
 }
+
+export function preloadServerComponent({ global = defaultGlobal }: RSCConfig) {
+  const rsc = buildServerComponent({ global });
+  const preload = async (uri: string): Promise<void> => {
+    await rsc({ uri });
+  };
+  return Object.freeze({
+    preload,
+  });
+}
+
+export const ServerComponent = ({
+  global = defaultGlobal,
+  source,
+  ...extras
+}: RSCProps): JSX.Element | null => {
+  const { Component } = React.useMemo(() => {
+    return createServerComponent({ global });
+  }, [global]);
+
+  if (source && Component) {
+    return <Component source={source} {...extras} />;
+  }
+  return null;
+};

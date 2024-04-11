@@ -11,6 +11,7 @@ export type RSCSource =
 export type RSCActions = 'NAVIGATE' | 'IO' | 'STATE_CHANGE';
 
 export type RSCProps = {
+  readonly global?: any;
   readonly source: RSCSource;
   readonly fallbackComponent?: () => JSX.Element;
   readonly loadingComponent?: () => JSX.Element;
