@@ -139,13 +139,14 @@ export function preloadServerComponent({ global = defaultGlobal }: RSCConfig) {
 export const ServerComponent = ({
   global = defaultGlobal,
   source,
+  onAction,
 }: RSCProps): JSX.Element | null => {
   const { Component } = React.useMemo(() => {
     return createServerComponent({ global });
   }, [global]);
 
   if (source && Component) {
-    return <Component source={source} />;
+    return <Component source={source} onAction={onAction} />;
   }
   return null;
 };
