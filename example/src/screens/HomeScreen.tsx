@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { ServerComponent } from 'react-native-server-component';
 
 export default function HomeScreen({ navigation }) {
@@ -14,10 +14,18 @@ export default function HomeScreen({ navigation }) {
     [navigation]
   );
 
+  const FallbackComponent = () => {
+    return (
+      <View>
+        <Text> Fallback Component </Text>
+      </View>
+    );
+  };
   return (
     <View style={styles.container}>
       <ServerComponent
         source={{ uri: 'http://10.0.2.2:8080' }}
+        fallbackComponent={<FallbackComponent />}
         onAction={handleAction}
       />
       {/* <Pressable onPress={onPress}>

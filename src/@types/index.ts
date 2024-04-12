@@ -13,9 +13,9 @@ export type RSCActions = 'NAVIGATE' | 'IO' | 'STATE_CHANGE';
 export type RSCProps = {
   readonly global?: any;
   readonly source: RSCSource;
-  readonly fallbackComponent?: () => JSX.Element;
-  readonly loadingComponent?: () => JSX.Element;
-  readonly errorComponent?: () => JSX.Element;
+  readonly fallbackComponent?: JSX.Element;
+  readonly loadingComponent?: JSX.Element;
+  readonly errorComponent?: JSX.Element;
   readonly onError?: (error: Error) => void;
   readonly navigationRef?: React.Ref<any>;
   readonly onAction?: (
