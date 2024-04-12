@@ -69,7 +69,6 @@ const buildRequest =
     readonly component: (src: string) => Promise<React.Component>;
   }) =>
   async (uri: string, callback: RSCPromise<React.Component>) => {
-    //const handler = completionHandler();
     try {
       const result = await axiosRequest({ url: uri, method: 'get' });
       const { data } = result;
