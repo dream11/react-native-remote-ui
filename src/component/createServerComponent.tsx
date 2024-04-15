@@ -4,6 +4,8 @@ import type { RSCPromise, RSCConfig, RSCSource, RSCProps } from '../@types';
 import RSC from './ServerComponent';
 import axios, { type AxiosRequestConfig } from 'axios';
 import ComponentCache from '../cache/componentCache';
+import { RSCResponseHeaders } from '../utils/constants';
+import { getTTLFromResponseHeaders } from '../utils/utils';
 
 const cache = ComponentCache.getInstance<React.Component>();
 
@@ -71,14 +73,26 @@ const buildRequest =
   async (uri: string, callback: RSCPromise<React.Component>) => {
     try {
       const result = await axiosRequest({ url: uri, method: 'get' });
-      const { data } = result;
+      const { data, headers } = result;
+      var ttl = getTTLFromResponseHeaders(headers);
+      if (
+        headers[RSCResponseHeaders.ttl] &&
+        headers[RSCResponseHeaders.ttl] !== ''
+      ) {
+        ttl = headers[RSCResponseHeaders.ttl];
+      }
+
       if (typeof data !== 'string') {
         throw new Error(
           `[ServerComponent]: Expected string data, encountered ${typeof data}`
         );
       }
       const Component = await component(data);
-      cache.set(uri, Component);
+      cache.set(uri, {
+        value: Component,
+        ttl: ttl,
+        timestamp: Date.now(),
+      });
       return callback.resolve(Component);
     } catch (e) {
       cache.set(uri, null);
@@ -97,13 +111,27 @@ const buildURIForRSC =
     ) => void;
   }) =>
   (uri: string, callback: RSCPromise<React.Component>): void => {
-    const Component = cache.get(uri);
+    const cachedTimeStamp: number = cache.getTimeStamp(uri);
+    const ttl: number = cache.getTTL(uri);
     const { resolve, reject } = callback;
-    if (Component === null) {
-      return uriRequest(uri, callback);
-    } else if (typeof Component === 'function') {
-      return resolve(Component);
+
+    // No value found for ttl, serve component from cache if exists
+    if (ttl === -1) {
+      const Component = cache.get(uri);
+      if (Component === null) {
+        return uriRequest(uri, callback);
+      } else if (typeof Component === 'function') {
+        return resolve(Component);
+      }
     }
+
+    // ignore cache in case of ttl is 0
+    // for any other value, check if cache needs to burst
+    if (ttl === 0 || Date.now() - cachedTimeStamp > ttl) {
+      cache.delete(uri);
+      return uriRequest(uri, callback);
+    }
+
     return reject(
       new Error(`[RSC]: Component for uri "${uri}" could not be instantiated`)
     );
