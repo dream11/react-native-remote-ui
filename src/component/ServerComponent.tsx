@@ -5,8 +5,8 @@ export default function RSC({
   source,
   openRSC,
   fallbackComponent,
-  loadingComponent = () => <React.Fragment />,
-  errorComponent = () => <React.Fragment />,
+  loadingComponent = <React.Fragment />,
+  errorComponent = <React.Fragment />,
   ...extras
 }: RSCProps): JSX.Element {
   const [ServerComponent, setServerComponent] =
@@ -31,10 +31,24 @@ export default function RSC({
 
   const FallbackComponent = React.useCallback((): JSX.Element => {
     if (fallbackComponent) {
-      return fallbackComponent();
+      return fallbackComponent;
     }
     return <></>;
   }, [fallbackComponent]);
+
+  const ErrorComponent = React.useCallback((): JSX.Element => {
+    if (errorComponent) {
+      return errorComponent;
+    }
+    return <></>;
+  }, [errorComponent]);
+
+  const LoadingComponent = React.useCallback((): JSX.Element => {
+    if (loadingComponent) {
+      return loadingComponent;
+    }
+    return <></>;
+  }, [loadingComponent]);
 
   if (typeof ServerComponent === 'function') {
     return (
@@ -45,7 +59,7 @@ export default function RSC({
       </React.Fragment>
     );
   } else if (error) {
-    return errorComponent();
+    return <ErrorComponent />;
   }
-  return loadingComponent();
+  return <LoadingComponent />;
 }
