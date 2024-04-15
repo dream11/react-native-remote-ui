@@ -1,6 +1,6 @@
 # react-native-server-component
 
-Server component for react native
+This component allows react-native applications to render remote components. Remote components are loaded through URL at runtime. Remotely loaded components behaves similar to the locally imported components.
 
 ## Installation
 
@@ -10,13 +10,76 @@ npm install react-native-server-component
 
 ## Usage
 
-```js
-import { multiply } from 'react-native-server-component';
+### Server Component
 
-// ...
+```tsx
+import React from 'react';
+import { View } from 'react-native';
+import { ServerComponent } from 'react-native-server-component';
 
-const result = await multiply(3, 7);
+const FallbackComponent = () => {
+  return (
+    <View>
+      <Text> Fallback Component </Text>
+    </View>
+  );
+};
+
+export default function App() {
+  return (
+    <View style={{ flex: 1 }}>
+      <ServerComponent
+        source={{ uri: 'http://10.0.2.2:8080' }}
+        fallbackComponent={<FallbackComponent />}
+      />
+    </View>
+  );
+}
 ```
+
+### Pre Load Component
+
+```tsx
+import React from 'react';
+import { View } from 'react-native';
+import { ServerComponent } from 'react-native-server-component';
+
+const { preload } = preloadServerComponent({});
+(async () => {
+  try {
+    await preload('http://10.0.2.2:8080');
+  } catch (e) {
+    console.error('Failed to preload. ', e);
+  }
+})();
+
+export default function App() {
+  return (
+    <View style={{ flex: 1 }}>
+      <ServerComponent
+        source={{ uri: 'http://10.0.2.2:8080' }}
+        fallbackComponent={<FallbackComponent />}
+      />
+    </View>
+  );
+}
+```
+
+## API
+
+TODO:: Add API documentation
+
+## Handling Actions
+
+TODO:: Add actions documentation
+
+## TTL based component caching
+
+TODO:: Add caching documentation
+
+## Running example app
+
+TODO:: Add documentation
 
 ## Contributing
 
