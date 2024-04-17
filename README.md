@@ -81,6 +81,8 @@ export default function App() {
 
 ## How does it work?
 
+![Alt text](./docs/working.png)
+
 ## Props
 
 - `source`
