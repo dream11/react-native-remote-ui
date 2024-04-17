@@ -29,7 +29,7 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <ServerComponent
-        source={{ uri: 'http://10.0.2.2:8080' }}
+        source={{ uri: 'http://10.0.2.2:8080/home-component' }}
         fallbackComponent={<FallbackComponent />}
       />
     </View>
@@ -47,7 +47,7 @@ import { ServerComponent } from 'react-native-server-component';
 const { preload } = preloadServerComponent({});
 (async () => {
   try {
-    await preload('http://10.0.2.2:8080');
+    await preload('http://10.0.2.2:8080/detail-component');
   } catch (e) {
     console.error('Failed to preload. ', e);
   }
@@ -57,7 +57,7 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <ServerComponent
-        source={{ uri: 'http://10.0.2.2:8080' }}
+        source={{ uri: 'http://10.0.2.2:8080/detail-component' }}
         fallbackComponent={<FallbackComponent />}
       />
     </View>
@@ -65,9 +65,18 @@ export default function App() {
 }
 ```
 
-## API
+## Props
 
-TODO:: Add API documentation
+Following are the list of props accepted by ServerComponent
+
+- source
+  - URI to fetch component source
+- fallbackComponent
+- errorComponent
+  - Component to be used in case of error in ServerComponent
+- loadingComponent
+- onAction
+  - Callback with `action` and `payload`. Current supported actions are `NAVIGATE`, `IO`.
 
 ## Handling Actions
 
