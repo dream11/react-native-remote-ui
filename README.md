@@ -78,7 +78,26 @@ export default function App() {
 
 ## Handling Actions
 
-TODO:: Add actions documentation
+Server Component is capable of handling all the user interactions. They can emit event to let host application know about actions, host application needs to implement `onAction` callback provided by Server Component.
+
+```tsx
+const handleAction = useCallback(
+  (action: string, payload: Record<string, any>) => {
+    switch (action) {
+      case 'NAVIGATE':
+        navigation.navigate(payload.route);
+        break;
+    }
+  },
+  [navigation]
+);
+
+<ServerComponent
+  source={{ uri: 'http://10.0.2.2:8080' }}
+  fallbackComponent={<FallbackComponent />}
+  onAction={handleAction}
+/>;
+```
 
 ## TTL based component caching
 
