@@ -27,7 +27,9 @@
     "@react-native/babel-preset": "0.73.21",
     "@react-native/metro-config": "0.73.5",
     "@react-native/typescript-config": "0.73.1",
-    "babel-plugin-module-resolver": "^5.0.0"
+    "babel-plugin-module-resolver": "^5.0.0",
+    "chalk": "^4.1.0",
+    "express": "^4.17.1"
   },
   "engines": {
     "node": ">=18"
