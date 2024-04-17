@@ -1,6 +1,6 @@
 # react-native-server-component
 
-Server Component allows react-native applications to render remote components. Remote components are loaded through URL at runtime. Remotely loaded components behaves similar to the locally imported components.
+Server Component allow react-native (Host) applications to render remote (Server) components. Remote components are loaded through URI at runtime. Remotely loaded components behaves similar to the locally imported components.
 
 ## Installation
 
@@ -79,6 +79,8 @@ export default function App() {
 }
 ```
 
+## How does it work?
+
 ## Props
 
 - `source`
@@ -143,9 +145,9 @@ const ExampleServerComponent = ({
 };
 ```
 
-## TTL based component caching
+## Component Caching
 
-TODO:: Add caching documentation
+Server Components are cached in-memory for URI. Internally axios is used to fetch source from URI. `Cache-Control` header in response is used for cache burst in app session.
 
 ## Running example app
 
