@@ -28,7 +28,7 @@ const serverTranspiledJS = async (req, res) => {
     //   .toString();
 
     const data = fs.readFileSync(
-      '/Users/kunal.chavhan/workplace/react-native-server-component/server/Mocks/TranspiledExample.js',
+      '/Users/kunal.chavhan/workplace/react-native-server-component/example/server/Mocks/TranspiledExample.js',
       { encoding: 'utf8', flag: 'r' }
     );
 

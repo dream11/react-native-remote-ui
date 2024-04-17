@@ -10,7 +10,7 @@ var _react = _interopRequireWildcard(require('react'));
 var _reactNative = require('react-native');
 var _this = void 0,
   _jsxFileName =
-    '/Users/kunal.chavhan/workplace/react-native-server-component/server/Mocks/ExampleServerComponent.tsx';
+    '/Users/kunal.chavhan/workplace/react-native-server-component/example/server/Mocks/ExampleServerComponent.tsx';
 function _getRequireWildcardCache(e) {
   if ('function' != typeof WeakMap) return null;
   var r = new WeakMap(),

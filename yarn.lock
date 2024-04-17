@@ -11344,7 +11344,14 @@ __metadata:
     react-native: 0.73.6
     react-native-safe-area-context: ^4.9.0
     react-native-screens: ^3.29.0
+    react-native-server-component: "link:../src"
   languageName: unknown
+  linkType: soft
+
+"react-native-server-component@link:../src::locator=react-native-server-component-example%40workspace%3Aexample":
+  version: 0.0.0-use.local
+  resolution: "react-native-server-component@link:../src::locator=react-native-server-component-example%40workspace%3Aexample"
+  languageName: node
   linkType: soft
 
 "react-native-server-component@workspace:.":
