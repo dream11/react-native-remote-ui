@@ -1,6 +1,6 @@
 # react-native-server-component
 
-This component allows react-native applications to render remote components. Remote components are loaded through URL at runtime. Remotely loaded components behaves similar to the locally imported components.
+Server Component allows react-native applications to render remote components. Remote components are loaded through URL at runtime. Remotely loaded components behaves similar to the locally imported components.
 
 ## Installation
 
@@ -13,6 +13,8 @@ npm install react-native-server-component
 ### Server Component
 
 ```tsx
+// Host Application Component using ServerComponent
+
 import React from 'react';
 import { View } from 'react-native';
 import { ServerComponent } from 'react-native-server-component';
@@ -35,6 +37,18 @@ export default function App() {
     </View>
   );
 }
+```
+
+```tsx
+// Server Component hosted on server
+
+export const HomeComponent = () => {
+  return (
+    <View>
+      <Text> Server Component </Text>
+    </View>
+  );
+};
 ```
 
 ### Pre Load Component
@@ -76,11 +90,13 @@ export default function App() {
 - `onAction`
   - Callback with `action` and `payload`. Current supported actions are `NAVIGATE`, `IO`.
 
-## Handling Actions
+## Handling Actions on Server Component
 
 Server Component is capable of handling all the user interactions. They can emit event to let host application know about actions, host application needs to implement `onAction` callback provided by Server Component.
 
 ```tsx
+// Host application
+
 const handleAction = useCallback(
   (action: string, payload: Record<string, any>) => {
     switch (action) {
@@ -97,6 +113,34 @@ const handleAction = useCallback(
   fallbackComponent={<FallbackComponent />}
   onAction={handleAction}
 />;
+```
+
+Action emitted contains action type and payload.
+
+```tsx
+// Example Server Component
+
+const ExampleServerComponent = ({
+  onAction,
+}: {
+  onAction: (action: any, payload: Record<string, any>) => void;
+}) => {
+  const onPress = useCallback(() => {
+    if (onAction) {
+      onAction('NAVIGATE', { route: 'DetailsScreen' });
+    }
+  }, [onAction]);
+
+  return (
+    <View>
+      <Pressable onPress={onPress}>
+        <View>
+          <Text> {`Navigation`} </Text>
+        </View>
+      </Pressable>
+    </View>
+  );
+};
 ```
 
 ## TTL based component caching
