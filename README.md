@@ -67,15 +67,13 @@ export default function App() {
 
 ## Props
 
-Following are the list of props accepted by ServerComponent
-
-- source
+- `source`
   - URI to fetch component source
-- fallbackComponent
-- errorComponent
+- `fallbackComponent`
+- `errorComponent`
   - Component to be used in case of error in ServerComponent
-- loadingComponent
-- onAction
+- `loadingComponent`
+- `onAction`
   - Callback with `action` and `payload`. Current supported actions are `NAVIGATE`, `IO`.
 
 ## Handling Actions
