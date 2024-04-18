@@ -1,6 +1,7 @@
 # react-native-server-component
 
 Server Component allow react-native (Host) applications to render remote (Server) components. Remote components are loaded through URI at runtime. Remotely loaded components behaves similar to the locally imported components.
+Server Component are babel transpiled source code of tsx or jsx, which is executed at runtime. This gives capability to update/change UI without app release. Server Components can use react lifecycle events like `useEffect` or state.
 
 ## Installation
 
