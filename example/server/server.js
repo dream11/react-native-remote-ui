@@ -1,9 +1,9 @@
 const express = require('express');
 const fs = require('fs');
 const chalk = require('chalk');
-
+const path = require('path');
 const app = express();
-
+const mocks = path.resolve(`./server/Mocks`, 'TranspiledExample.js');
 const PORT = 8080;
 
 app.get('/', (req, res) => {
@@ -21,17 +21,7 @@ app.listen(PORT, () => {
 
 const serverTranspiledJS = async (req, res) => {
   try {
-    // const data = child_process
-    //   .execSync(
-    //     `npx babel --presets=@babel/preset-env,@babel/preset-react /Users/kunal.chavhan/workplace/RNPlayground/src/rsc/ContestCard/ContestCard.tsx`,
-    //   )
-    //   .toString();
-
-    const data = fs.readFileSync(
-      '/Users/kunal.chavhan/workplace/react-native-server-component/server/Mocks/TranspiledExample.js',
-      { encoding: 'utf8', flag: 'r' }
-    );
-
+    const data = fs.readFileSync(mocks, { encoding: 'utf8', flag: 'r' });
     return res.send(data);
   } catch (e) {
     console.log(chalk.red.bold`Got error ${e}`);

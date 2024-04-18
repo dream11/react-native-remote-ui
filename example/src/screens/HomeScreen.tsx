@@ -2,6 +2,13 @@ import React, { useCallback } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { ServerComponent } from 'react-native-server-component';
 
+const FallbackComponent = () => {
+  return (
+    <View>
+      <Text> Fallback Component </Text>
+    </View>
+  );
+};
 export default function HomeScreen({ navigation }) {
   const handleAction = useCallback(
     (action: string, payload: Record<string, any>) => {
@@ -14,13 +21,6 @@ export default function HomeScreen({ navigation }) {
     [navigation]
   );
 
-  const FallbackComponent = () => {
-    return (
-      <View>
-        <Text> Fallback Component </Text>
-      </View>
-    );
-  };
   return (
     <View style={styles.container}>
       <ServerComponent
