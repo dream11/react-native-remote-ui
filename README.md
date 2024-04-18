@@ -83,7 +83,15 @@ export default function App() {
 
 ![Alt text](./docs/working.png)
 
-Server Component requires transpiled \*.tsx (jsx) code to be executed at runtime in host application. Babel is used to transpile the .tsx or .jsx file in format Server Component can understand. Transpiled source code must be served from URL to Server Component. Since server component execute transpiled source code at runtime, right now only vanilla react native components can be used in Server Component. For any third party library usage in Server Component, import must be resolved at runtime. Resolving imports for third party dependencies can be done by providing `global` prop to Server Component. For successful import resolution at runtime, the third party dependency must be part of original bundle shipped with host application.
+Server Component requires transpiled \*.tsx (jsx) code to be executed at runtime in host application. Babel is used to transpile the .tsx or .jsx file in format Server Component can understand.
+
+Babel command to transpile tsx or jsx
+
+```sh
+npx babel --presets=@babel/preset-env,@babel/preset-react ExampleServerComponent.tsx -o TranspiledExample.js
+```
+
+Transpiled source code must be served from URL to Server Component. Since server component executes transpiled source code at runtime, right now only vanilla react native components can be used in Server Component. For any third party library usage, import must be resolved at runtime. Resolving imports for third party dependencies can be done by providing `global` prop. For successful import resolution at runtime, the third party dependency must be part of original bundle shipped with host application.
 
 ```tsx
 // Server Component hosted on server
@@ -130,15 +138,18 @@ const App = () => {
 - `source`
   - URI to fetch component source
 - `fallbackComponent`
+  - Fallback component provided to React Suspense
 - `errorComponent`
   - Component to be used in case of error in ServerComponent
 - `loadingComponent`
 - `onAction`
   - Callback with `action` and `payload`. Current supported actions are `NAVIGATE`, `IO`.
+- `global`
+  - Custom import resolution, used by Server Component at runtime
 
 ## Handling Actions on Server Component
 
-Server Component is capable of handling all the user interactions. They can emit event to let host application know about actions, host application needs to implement `onAction` callback provided by Server Component.
+Server Component is capable of handling all the user interactions. They can emit event to let host application know about actions, host application needs to implement `onAction` callback provided by Server Component. `onAction` callback has two parameters action type and payload
 
 ```tsx
 // Host application
@@ -191,11 +202,25 @@ const ExampleServerComponent = ({
 
 ## Component Caching
 
-Server Components are cached in-memory for URI. Internally axios is used to fetch source from URI. `Cache-Control` header in response is used for cache burst in app session.
+Server Components are cached in-memory for URI. Internally axios is used to fetch source from URI. `Cache-Control` header in response is used to burst cache session. `Cache-Control` should follow standard format e.g. `max-age=$value` where `value` is in milliseconds.
 
 ## Running example app
 
-TODO:: Add documentation
+Example has `server` folder which contains express server and mocks for Server Component.
+
+```sh
+cd example
+
+# transpile component
+yarn transpile:mock
+
+# start server
+# This will start serving transpiled mock
+yarn start:server
+
+# start metro
+yarn start
+```
 
 ## Contributing
 
