@@ -15,7 +15,7 @@ npm install react-native-server-component
 ```tsx
 // Host Application Component using ServerComponent
 
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import { ServerComponent } from 'react-native-server-component';
 
@@ -54,7 +54,7 @@ export const HomeComponent = () => {
 ### Pre Load Component
 
 ```tsx
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import { ServerComponent } from 'react-native-server-component';
 
@@ -82,6 +82,48 @@ export default function App() {
 ## How does it work?
 
 ![Alt text](./docs/working.png)
+
+Server Component requires transpiled \*.tsx (jsx) code to be executed at runtime in host application. Babel is used to transpile the .tsx or .jsx file in format Server Component can understand. Transpiled source code must be served from URL to Server Component. Since server component execute transpiled source code at runtime, right now only vanilla react native components can be used in Server Component. For any third party library usage in Server Component, import must be resolved at runtime. Resolving imports for third party dependencies can be done by providing `global` prop to Server Component. For successful import resolution at runtime, the third party dependency must be part of original bundle shipped with host application.
+
+```tsx
+// Server Component hosted on server
+
+import * as React from 'react';
+// Buttton component used from react-native-elements
+import { Button } from '@rneui/base';
+import { View } from 'react-native';
+
+const ServerComponent = () => {
+  return (
+    <View>
+      <Button title="Hello World!" />;
+    </View>
+  );
+};
+```
+
+To resolve import of `Button` at runtime in host application, `global` prop must be provided to Server Component
+
+```tsx
+// Host application component using server component
+
+const App = () => {
+  return (
+    <View>
+      <ServerComponent
+        global={{
+          require: (moduleId: string) => {
+            if (moduleId === '@rneui/base') {
+              return '@rneui/base';
+            }
+            return null;
+          },
+        }}
+      />
+    </View>
+  );
+};
+```
 
 ## Props
 
