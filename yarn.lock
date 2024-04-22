@@ -1951,16 +1951,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@evilmartians/lefthook@npm:^1.5.0":
-  version: 1.6.7
-  resolution: "@evilmartians/lefthook@npm:1.6.7"
-  bin:
-    lefthook: bin/index.js
-  checksum: 43e422d092d54958060e64519c1dc354f58cfc788066cb746d1ad9bcb8970099912737b5a53edcaa703a724e01de72ad0b3ce9742fc2cd76d492f61639ad2318
-  conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64 | cpu=ia32)
-  languageName: node
-  linkType: hard
-
 "@hapi/hoek@npm:^9.0.0, @hapi/hoek@npm:^9.3.0":
   version: 9.3.0
   resolution: "@hapi/hoek@npm:9.3.0"
@@ -11366,7 +11356,6 @@ __metadata:
     "@babel/preset-react": ^7.23.3
     "@babel/runtime": ^7.20.0
     "@commitlint/config-conventional": ^17.0.2
-    "@evilmartians/lefthook": ^1.5.0
     "@react-native/babel-preset": 0.73.19
     "@react-native/eslint-config": ^0.73.1
     "@release-it/conventional-changelog": ^5.0.0

@@ -1,25 +1,2 @@
-// import { NativeModules, Platform } from 'react-native';
-
-// const LINKING_ERROR =
-//   `The package 'react-native-server-component' doesn't seem to be linked. Make sure: \n\n` +
-//   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-//   '- You rebuilt the app after installing the package\n' +
-//   '- You are not using Expo Go\n';
-
-// const ServerComponent = NativeModules.ServerComponent
-//   ? NativeModules.ServerComponent
-//   : new Proxy(
-//       {},
-//       {
-//         get() {
-//           throw new Error(LINKING_ERROR);
-//         },
-//       }
-//     );
-
-// export function multiply(a: number, b: number): Promise<number> {
-//   return ServerComponent.multiply(a, b);
-// }
-
 export * from './@types';
-export * from './component';
+export * from './components';
