@@ -14,20 +14,22 @@ export default function RSC({
 
   const [error, setError] = React.useState<Error | null>(null);
 
-  React.useEffect(() => {
-    (async () => {
-      try {
-        if (typeof openRSC === 'function') {
-          const rsc = await openRSC(source);
-          return setServerComponent(() => rsc);
-        }
-        throw new Error(`[ServerComponent]: typeof openRSC should be function`);
-      } catch (e) {
-        setServerComponent(() => null);
-        setError(e);
+  const setComponent = React.useCallback(async () => {
+    try {
+      if (typeof openRSC === 'function') {
+        const rsc = await openRSC(source);
+        return setServerComponent(() => rsc);
       }
-    })();
+      throw new Error(`[ServerComponent]: typeof openRSC should be function`);
+    } catch (e) {
+      setServerComponent(() => null);
+      setError(e);
+    }
   }, [source, openRSC]);
+
+  React.useEffect(() => {
+    setComponent();
+  }, [setComponent]);
 
   const FallbackComponent = React.useCallback((): JSX.Element => {
     if (fallbackComponent) {
