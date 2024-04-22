@@ -58,18 +58,26 @@ export const HomeComponent = () => {
 ```tsx
 import * as React from 'react';
 import { View } from 'react-native';
-import { ServerComponent } from 'react-native-server-component';
-
-const { preload } = preloadServerComponent({});
-(async () => {
-  try {
-    await preload('http://10.0.2.2:8080/detail-component');
-  } catch (e) {
-    console.error('Failed to preload. ', e);
-  }
-})();
+import {
+  ServerComponent,
+  preloadServerComponent,
+} from 'react-native-server-component';
 
 export default function App() {
+  // make sure to preload before actual usage
+  const preloadComponent = async () => {
+    try {
+      const { preload } = preloadServerComponent({});
+      await preload('http://10.0.2.2:8080/detail-component');
+    } catch (e) {
+      console.error('Failed to preload. ', e);
+    }
+  };
+
+  React.useEffect(() => {
+    preloadComponent();
+  }, []);
+
   return (
     <View style={{ flex: 1 }}>
       <ServerComponent
