@@ -2,7 +2,7 @@
 
 Server Component allow react-native (Host) applications to render remote (Server) components. Remote components are loaded through URI at runtime. Remotely loaded components behaves similar to the locally imported components.
 
-Server Component are babel transpiled source code of tsx or jsx, which is executed at runtime. This gives capability to update/change UI without app release. Server Components can use react lifecycle events like `useEffect` or state.
+Server Component are babel transpiled source code of tsx or jsx, which is executed at runtime. This gives capability to update/change UI without app release. Server Components can use hooks like `useState` and also react lifecycle events like `useEffect`.
 
 ## Installation
 
@@ -33,7 +33,7 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <ServerComponent
-        source={{ uri: 'http://10.0.2.2:8080/home-component' }}
+        source={{ uri: 'https://api.server.com/promotion-card.jsx' }}
         fallbackComponent={<FallbackComponent />}
       />
     </View>
@@ -65,10 +65,12 @@ import {
 
 export default function App() {
   // make sure to preload before actual usage
+  // components are cached againt URI
+
   const preloadComponent = async () => {
     try {
       const { preload } = preloadServerComponent({});
-      await preload('http://10.0.2.2:8080/detail-component');
+      await preload('https://api.server.com/player-card.jsx');
     } catch (e) {
       console.error('Failed to preload. ', e);
     }
@@ -81,7 +83,7 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <ServerComponent
-        source={{ uri: 'http://10.0.2.2:8080/detail-component' }}
+        source={{ uri: 'https://api.server.com/player-card.jsx' }}
         fallbackComponent={<FallbackComponent />}
       />
     </View>
@@ -176,7 +178,7 @@ const handleAction = useCallback(
 );
 
 <ServerComponent
-  source={{ uri: 'http://10.0.2.2:8080' }}
+  source={{ uri: 'https://api.server.com/card.jsx' }}
   fallbackComponent={<FallbackComponent />}
   onAction={handleAction}
 />;
