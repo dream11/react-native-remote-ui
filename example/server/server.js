@@ -14,8 +14,10 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.clear();
   console.log(`Server running at: http://localhost:${PORT}/`);
-  console.log(`If you are using android emulator use IP 10.0.2.2:8080`);
-  console.log(chalk.white.bold`🕳️ 🐛 RSCs are being served!`);
+  console.log(
+    `If you are using android emulator use IP 10.0.2.2:8080 in your app`
+  );
+  console.log(chalk.white.bold` RSCs are being served!`);
   console.log(chalk.green.bold`Port: ${PORT}`);
 });
 
