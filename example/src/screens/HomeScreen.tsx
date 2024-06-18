@@ -23,14 +23,16 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ServerComponent
-        source={{ uri: 'http://10.0.2.2:8080' }}
-        fallbackComponent={<FallbackComponent />}
-        onAction={handleAction}
-      />
-      {/* <Pressable onPress={onPress}>
-        <Text style={styles.text}> {`Navigation`} </Text>
-      </Pressable> */}
+      <Text style={styles.text}>
+        {'Component inside red box is rendered from server'}
+      </Text>
+      <View style={styles.redBox}>
+        <ServerComponent
+          source={{ uri: 'http://10.0.2.2:8080' }}
+          fallbackComponent={<FallbackComponent />}
+          onAction={handleAction}
+        />
+      </View>
     </View>
   );
 }
@@ -38,18 +40,24 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  redBox: {
+    flex: 0.5,
+    borderWidth: 1,
+    borderColor: 'red',
+    margin: 16,
+  },
+  text: {
+    fontWeight: 'bold',
+    textAlign: 'left',
+    color: 'black',
+    fontSize: 16,
+    marginLeft: 16,
+    marginTop: 32,
   },
   box: {
     width: 60,
     height: 60,
     marginVertical: 20,
-  },
-  text: {
-    color: 'red',
-    fontWeight: '400',
-    borderWidth: 2,
-    borderColor: '#a1a1a1',
   },
 });

@@ -25,10 +25,8 @@ const ExampleServerComponent = ({
       <Text style={styles.hello}> Hello Server Component</Text>
       <Text style={styles.catFactsTitle}> Cat Facts </Text>
       <Text style={styles.facts}> {catFact} </Text>
-      <Pressable onPress={onPress}>
-        <View style={styles.button}>
-          <Text style={styles.text}> {`Navigation`} </Text>
-        </View>
+      <Pressable style={styles.button} onPress={onPress}>
+        <Text style={styles.text}> {`Server Navigate Action`} </Text>
       </Pressable>
     </View>
   );
@@ -62,10 +60,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    height: 30,
-    width: 100,
     marginTop: 20,
     borderRadius: 3,
+    padding: 5,
     backgroundColor: '#65A765',
     justifyContent: 'center',
     alignContent: 'center',

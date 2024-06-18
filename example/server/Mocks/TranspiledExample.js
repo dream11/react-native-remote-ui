@@ -99,32 +99,21 @@ var ExampleServerComponent = function ExampleServerComponent(_ref) {
     _react['default'].createElement(
       _reactNative.Pressable,
       {
+        style: styles.button,
         onPress: onPress,
         __self: _this,
         __source: { fileName: _jsxFileName, lineNumber: 28, columnNumber: 7 },
       },
       _react['default'].createElement(
-        _reactNative.View,
+        _reactNative.Text,
         {
-          style: styles.button,
+          style: styles.text,
           __self: _this,
           __source: { fileName: _jsxFileName, lineNumber: 29, columnNumber: 9 },
         },
-        _react['default'].createElement(
-          _reactNative.Text,
-          {
-            style: styles.text,
-            __self: _this,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 30,
-              columnNumber: 11,
-            },
-          },
-          ' ',
-          'Navigation',
-          ' '
-        )
+        ' ',
+        'Server Navigate Action',
+        ' '
       )
     )
   );
@@ -141,10 +130,9 @@ var styles = _reactNative.StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    height: 30,
-    width: 100,
     marginTop: 20,
     borderRadius: 3,
+    padding: 5,
     backgroundColor: '#65A765',
     justifyContent: 'center',
     alignContent: 'center',
