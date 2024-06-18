@@ -41,14 +41,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kunalchavhan/react-native-server-component.git"
+    "url": "git+https://github.com/dream11/react-native-server-component.git"
   },
   "author": "kunal.chavhan <kunal.chavhan@dream11.com> (https://github.com/kunalchavhan)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kunalchavhan/react-native-server-component/issues"
+    "url": "https://github.com/dream11/react-native-server-component/issues"
   },
-  "homepage": "https://github.com/kunalchavhan/react-native-server-component#readme",
+  "homepage": "https://github.com/dream11/react-native-server-component#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
