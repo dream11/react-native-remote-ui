@@ -12,7 +12,7 @@ export const getTTLFromResponseHeaders = (
   // Example: "max-age=1000"
   // value is in milliseconds
   const maxAgeMatch = cacheControlHeader?.match(/max-age=(\d+)/);
-  if (maxAgeMatch && maxAgeMatch.length > 1) {
+  if (maxAgeMatch && maxAgeMatch.length > 1 && maxAgeMatch[1]) {
     return parseInt(maxAgeMatch[1], 10);
   }
   // Default TTL value if not specified in headers
