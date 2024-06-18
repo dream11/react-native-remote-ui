@@ -23,7 +23,7 @@ export default function RSC({
       throw new Error(`[ServerComponent]: typeof openRSC should be function`);
     } catch (e) {
       setServerComponent(() => null);
-      setError(e);
+      setError(e as Error);
     }
   }, [source, openRSC]);
 

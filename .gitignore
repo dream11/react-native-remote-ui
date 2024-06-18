@@ -77,3 +77,6 @@ android/keystores/debug.keystore
 lib/
 
 example/.yarn/
+
+# npm
+.npmrc

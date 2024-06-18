@@ -97,7 +97,7 @@ const buildRequest =
     } catch (e) {
       cache.set(uri, null);
       console.log(`[ServerComponent]: Build Request caught error ${e}`);
-      return callback.reject(new Error(`${e.message}`));
+      return callback.reject(new Error(`${(e as Error).message}`));
     }
   };
 
