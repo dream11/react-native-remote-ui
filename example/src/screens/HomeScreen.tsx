@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Platform } from 'react-native';
 import { RemoteComponent } from 'react-native-remote-component';
 
 const FallbackComponent = () => {
@@ -9,6 +9,7 @@ const FallbackComponent = () => {
     </View>
   );
 };
+
 export default function HomeScreen({ navigation }) {
   const handleAction = useCallback(
     (action: string, payload: Record<string, any>) => {
@@ -28,7 +29,12 @@ export default function HomeScreen({ navigation }) {
       </Text>
       <View style={styles.redBox}>
         <RemoteComponent
-          source={{ uri: 'http://10.0.2.2:8080' }}
+          source={{
+            uri:
+              Platform.OS === 'ios'
+                ? 'http://127.0.0.1:8080'
+                : 'http://10.0.2.2:8080',
+          }}
           fallbackComponent={<FallbackComponent />}
           onAction={handleAction}
         />
