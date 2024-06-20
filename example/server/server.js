@@ -7,7 +7,7 @@ const mocks = path.resolve(`./server/Mocks`, 'TranspiledExample.js');
 const PORT = 8080;
 
 app.get('/', (req, res) => {
-  console.log(chalk.green.bold`Serving React Native Server Component`);
+  console.log(chalk.green.bold`Serving React Native Remote Component`);
   serverTranspiledJS(req, res);
 });
 
@@ -17,7 +17,7 @@ app.listen(PORT, () => {
   console.log(
     `If you are using android emulator use IP 10.0.2.2:8080 in your app`
   );
-  console.log(chalk.white.bold` RSCs are being served!`);
+  console.log(chalk.white.bold` Remote Components are being served!`);
   console.log(chalk.green.bold`Port: ${PORT}`);
 });
 

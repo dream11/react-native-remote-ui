@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  ServerComponentExample
+//  RemoteComponentExample
 //
 
 import Foundation

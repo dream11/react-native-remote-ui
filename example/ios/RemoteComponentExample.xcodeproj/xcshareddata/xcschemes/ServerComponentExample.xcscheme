@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "ServerComponentExample.app"
-               BlueprintName = "ServerComponentExample"
-               ReferencedContainer = "container:ServerComponentExample.xcodeproj">
+               BuildableName = "RemoteComponentExample.app"
+               BlueprintName = "RemoteComponentExample"
+               ReferencedContainer = "container:RemoteComponentExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "ServerComponentExampleTests.xctest"
-               BlueprintName = "ServerComponentExampleTests"
-               ReferencedContainer = "container:ServerComponentExample.xcodeproj">
+               BuildableName = "RemoteComponentExampleTests.xctest"
+               BlueprintName = "RemoteComponentExampleTests"
+               ReferencedContainer = "container:RemoteComponentExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ServerComponentExample.app"
-            BlueprintName = "ServerComponentExample"
-            ReferencedContainer = "container:ServerComponentExample.xcodeproj">
+            BuildableName = "RemoteComponentExample.app"
+            BlueprintName = "RemoteComponentExample"
+            ReferencedContainer = "container:RemoteComponentExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ServerComponentExample.app"
-            BlueprintName = "ServerComponentExample"
-            ReferencedContainer = "container:ServerComponentExample.xcodeproj">
+            BuildableName = "RemoteComponentExample.app"
+            BlueprintName = "RemoteComponentExample"
+            ReferencedContainer = "container:RemoteComponentExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

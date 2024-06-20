@@ -1,10 +1,15 @@
 /* eslint-disable no-new-func */
 import * as React from 'react';
-import type { RSCPromise, RSCConfig, RSCSource, RSCProps } from '../@types';
-import RSC from './ServerComponent';
+import type {
+  RemoteComponentPromise,
+  RemoteComponentConfig,
+  RemoteComponentSource,
+  RemoteComponentProps,
+} from '../@types';
+import RSC from './RemoteComponent';
 import axios, { type AxiosRequestConfig } from 'axios';
 import ComponentCache from '../cache/componentCache';
-import { RSCResponseHeaders } from '../utils/constants';
+import { RemoteComponentResponseHeaders } from '../utils/constants';
 import { getTTLFromResponseHeaders } from '../utils/utils';
 
 const cache = ComponentCache.getInstance<React.Component>();
@@ -29,7 +34,7 @@ const defaultGlobal = Object.freeze({
 const createComponent =
   (global: any) =>
   async (src: string): Promise<React.Component> => {
-    const globalName = '__SERVER_COMPONENT__';
+    const globalName = '__REMOTE_COMPONENT__';
     const Component = await new Function(
       globalName,
       `${Object.keys(global)
@@ -41,16 +46,16 @@ const createComponent =
 
 const axiosRequest = (config: AxiosRequestConfig) => axios(config);
 
-const buildRSC =
+const buildComponent =
   ({
     openURI,
   }: {
     readonly openURI: (
       uri: string,
-      callback: RSCPromise<React.Component>
+      callback: RemoteComponentPromise<React.Component>
     ) => void;
   }) =>
-  async (source: RSCSource): Promise<React.Component> => {
+  async (source: RemoteComponentSource): Promise<React.Component> => {
     // TODO handle string source
     if (source && typeof source === 'object') {
       const { uri } = source;
@@ -61,7 +66,7 @@ const buildRSC =
         );
       }
     }
-    throw new Error(`[ServerComponent]: Source is invalid`);
+    throw new Error(`[RemoteComponent]: Source is invalid`);
   };
 
 const buildRequest =
@@ -70,21 +75,21 @@ const buildRequest =
   }: {
     readonly component: (src: string) => Promise<React.Component>;
   }) =>
-  async (uri: string, callback: RSCPromise<React.Component>) => {
+  async (uri: string, callback: RemoteComponentPromise<React.Component>) => {
     try {
       const result = await axiosRequest({ url: uri, method: 'get' });
       const { data, headers } = result;
       var ttl = getTTLFromResponseHeaders(headers);
       if (
-        headers[RSCResponseHeaders.ttl] &&
-        headers[RSCResponseHeaders.ttl] !== ''
+        headers[RemoteComponentResponseHeaders.ttl] &&
+        headers[RemoteComponentResponseHeaders.ttl] !== ''
       ) {
-        ttl = headers[RSCResponseHeaders.ttl];
+        ttl = headers[RemoteComponentResponseHeaders.ttl];
       }
 
       if (typeof data !== 'string') {
         throw new Error(
-          `[ServerComponent]: Expected string data, encountered ${typeof data}`
+          `[RemoteComponent]: Expected string data, encountered ${typeof data}`
         );
       }
       const Component = await component(data);
@@ -96,21 +101,21 @@ const buildRequest =
       return callback.resolve(Component);
     } catch (e) {
       cache.set(uri, null);
-      console.log(`[ServerComponent]: Build Request caught error ${e}`);
+      console.log(`[RemoteComponent]: Build Request caught error ${e}`);
       return callback.reject(new Error(`${(e as Error).message}`));
     }
   };
 
-const buildURIForRSC =
+const buildURIForRemoteComponent =
   ({
     uriRequest,
   }: {
     readonly uriRequest: (
       uri: string,
-      callback: RSCPromise<React.Component>
+      callback: RemoteComponentPromise<React.Component>
     ) => void;
   }) =>
-  (uri: string, callback: RSCPromise<React.Component>): void => {
+  (uri: string, callback: RemoteComponentPromise<React.Component>): void => {
     const cachedTimeStamp: number = cache.getTimeStamp(uri);
     const ttl: number = cache.getTTL(uri);
     const { resolve, reject } = callback;
@@ -133,43 +138,47 @@ const buildURIForRSC =
     }
 
     return reject(
-      new Error(`[RSC]: Component for uri "${uri}" could not be instantiated`)
+      new Error(
+        `[RemoteComponent]: Component for uri "${uri}" could not be instantiated`
+      )
     );
   };
 
-function buildServerComponent({ global }: RSCConfig) {
+function buildRemoteComponent({ global }: RemoteComponentConfig) {
   const component = createComponent(global);
   const uriRequest = buildRequest({ component });
-  const openURI = buildURIForRSC({ uriRequest });
-  return buildRSC({ openURI });
+  const openURI = buildURIForRemoteComponent({ uriRequest });
+  return buildComponent({ openURI });
 }
 
-function createServerComponent({ global }: RSCConfig) {
-  const Component = (props: RSCProps) => (
-    <RSC {...props} openRSC={buildServerComponent({ global })} />
+function createRemoteComponent({ global }: RemoteComponentConfig) {
+  const Component = (props: RemoteComponentProps) => (
+    <RSC {...props} openRemoteComponent={buildRemoteComponent({ global })} />
   );
   return Object.freeze({
     Component,
   });
 }
 
-export function preloadServerComponent({ global = defaultGlobal }: RSCConfig) {
-  const rsc = buildServerComponent({ global });
+export function preloadRemoteComponent({
+  global = defaultGlobal,
+}: RemoteComponentConfig) {
+  const remoteComponent = buildRemoteComponent({ global });
   const preload = async (uri: string): Promise<void> => {
-    await rsc({ uri });
+    await remoteComponent({ uri });
   };
   return Object.freeze({
     preload,
   });
 }
 
-export const ServerComponent = ({
+export const RemoteComponent = ({
   global = defaultGlobal,
   source,
   ...extras
-}: RSCProps): JSX.Element | null => {
+}: RemoteComponentProps): JSX.Element | null => {
   const { Component } = React.useMemo(() => {
-    return createServerComponent({ global });
+    return createRemoteComponent({ global });
   }, [global]);
 
   if (source && Component) {

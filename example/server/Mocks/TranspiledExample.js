@@ -10,7 +10,7 @@ var _react = _interopRequireWildcard(require('react'));
 var _reactNative = require('react-native');
 var _this = void 0,
   _jsxFileName =
-    '/Users/kunal.chavhan/workplace/react-native-server-component/example/server/Mocks/ExampleServerComponent.tsx';
+    '/Users/kunal.chavhan/workplace/react-native-remote-component/example/server/Mocks/ExampleRemoteComponent.tsx';
 function _getRequireWildcardCache(e) {
   if ('function' != typeof WeakMap) return null;
   var r = new WeakMap(),
@@ -34,7 +34,7 @@ function _interopRequireWildcard(e, r) {
     }
   return (n['default'] = e), t && t.set(e, n), n;
 }
-var ExampleServerComponent = function ExampleServerComponent(_ref) {
+var ExampleRemoteComponent = function ExampleRemoteComponent(_ref) {
   var onAction = _ref.onAction;
   var _useState = (0, _react.useState)(''),
     _useState2 = (0, _slicedToArray2['default'])(_useState, 2),
@@ -74,7 +74,7 @@ var ExampleServerComponent = function ExampleServerComponent(_ref) {
         __self: _this,
         __source: { fileName: _jsxFileName, lineNumber: 25, columnNumber: 7 },
       },
-      ' Hello Server Component'
+      ' Hello Remote Component'
     ),
     _react['default'].createElement(
       _reactNative.Text,
@@ -139,4 +139,4 @@ var styles = _reactNative.StyleSheet.create({
     alignSelf: 'center',
   },
 });
-var _default = (exports['default'] = ExampleServerComponent);
+var _default = (exports['default'] = ExampleRemoteComponent);

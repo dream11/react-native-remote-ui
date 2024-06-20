@@ -1,1 +1,1 @@
-export * from './createServerComponent';
+export * from './createRemoteComponent';

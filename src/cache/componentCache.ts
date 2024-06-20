@@ -9,19 +9,19 @@ export interface CacheItem<T> {
   timestamp: number;
 }
 
-class ComponentCache<T> {
-  private static instance: ComponentCache<any>;
+class RemoteComponentCache<T> {
+  private static instance: RemoteComponentCache<any>;
   private cache: Map<string, CacheItem<T> | null>;
 
   constructor() {
     this.cache = new Map<string, CacheItem<T>>();
   }
 
-  public static getInstance<T>(): ComponentCache<T> {
-    if (!ComponentCache.instance) {
-      ComponentCache.instance = new ComponentCache<T>();
+  public static getInstance<T>(): RemoteComponentCache<T> {
+    if (!RemoteComponentCache.instance) {
+      RemoteComponentCache.instance = new RemoteComponentCache<T>();
     }
-    return ComponentCache.instance;
+    return RemoteComponentCache.instance;
   }
 
   set(key: string, value: CacheItem<T> | null): void {
@@ -61,4 +61,4 @@ class ComponentCache<T> {
   }
 }
 
-export default ComponentCache;
+export default RemoteComponentCache;

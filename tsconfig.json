@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-server-component": ["./src/index"]
+      "react-native-remote-component": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

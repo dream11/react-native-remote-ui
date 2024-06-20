@@ -1,5 +1,5 @@
 {
-  "name": "react-native-server-component-example",
+  "name": "react-native-remote-component-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,18 +7,18 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "build:android": "cd android && ./gradlew assembleDebug --no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a",
-    "build:ios": "cd ios && xcodebuild -workspace ServerComponentExample.xcworkspace -scheme ServerComponentExample -configuration Debug -sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO",
+    "build:ios": "cd ios && xcodebuild -workspace RemoteComponentExample.xcworkspace -scheme RemoteComponentExample -configuration Debug -sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO",
     "start:server": "node server/server.js",
-    "transpile:mock": "npx babel --presets=@babel/preset-env,@babel/preset-react ./server/Mocks/ExampleServerComponent.tsx -o ./server/Mocks/TranspiledExample.js"
+    "transpile:mock": "npx babel --presets=@babel/preset-env,@babel/preset-react ./server/Mocks/ExampleRemoteComponent.tsx -o ./server/Mocks/TranspiledExample.js"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "react": "18.2.0",
     "react-native": "0.73.6",
+    "react-native-remote-component": "link:../src",
     "react-native-safe-area-context": "^4.9.0",
-    "react-native-screens": "^3.29.0",
-    "react-native-server-component": "link:../src"
+    "react-native-screens": "^3.29.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

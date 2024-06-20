@@ -5629,6 +5629,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-remote-component-example@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "react-native-remote-component-example@workspace:."
+  dependencies:
+    "@babel/core": ^7.20.0
+    "@babel/preset-env": ^7.20.0
+    "@babel/runtime": ^7.20.0
+    "@react-native/babel-preset": 0.73.21
+    "@react-native/metro-config": 0.73.5
+    "@react-native/typescript-config": 0.73.1
+    "@react-navigation/native": ^6.1.17
+    "@react-navigation/native-stack": ^6.9.26
+    babel-plugin-module-resolver: ^5.0.0
+    chalk: ^4.1.0
+    express: ^4.17.1
+    react: 18.2.0
+    react-native: 0.73.6
+    react-native-remote-component: "link:../src"
+    react-native-safe-area-context: ^4.9.0
+    react-native-screens: ^3.29.0
+  languageName: unknown
+  linkType: soft
+
+"react-native-remote-component@link:../src::locator=react-native-remote-component-example%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "react-native-remote-component@link:../src::locator=react-native-remote-component-example%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "react-native-safe-area-context@npm:^4.9.0":
   version: 4.9.0
   resolution: "react-native-safe-area-context@npm:4.9.0"
@@ -5651,35 +5680,6 @@ __metadata:
   checksum: e6c9b69ec97a4e46dd335ed25312c3621546bf0959754338aabbd4a16cc9cfb259548c996d2d737ea772a7b2ce7f198ffcd2977673e74c141334ce94fa3861c6
   languageName: node
   linkType: hard
-
-"react-native-server-component-example@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "react-native-server-component-example@workspace:."
-  dependencies:
-    "@babel/core": ^7.20.0
-    "@babel/preset-env": ^7.20.0
-    "@babel/runtime": ^7.20.0
-    "@react-native/babel-preset": 0.73.21
-    "@react-native/metro-config": 0.73.5
-    "@react-native/typescript-config": 0.73.1
-    "@react-navigation/native": ^6.1.17
-    "@react-navigation/native-stack": ^6.9.26
-    babel-plugin-module-resolver: ^5.0.0
-    chalk: ^4.1.0
-    express: ^4.17.1
-    react: 18.2.0
-    react-native: 0.73.6
-    react-native-safe-area-context: ^4.9.0
-    react-native-screens: ^3.29.0
-    react-native-server-component: "link:../src"
-  languageName: unknown
-  linkType: soft
-
-"react-native-server-component@link:../src::locator=react-native-server-component-example%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "react-native-server-component@link:../src::locator=react-native-server-component-example%40workspace%3A."
-  languageName: node
-  linkType: soft
 
 "react-native@npm:0.73.6":
   version: 0.73.6

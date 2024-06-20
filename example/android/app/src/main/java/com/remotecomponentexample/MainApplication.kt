@@ -1,4 +1,4 @@
-package com.servercomponentexample
+package com.remotecomponentexample
 
 import android.app.Application
 import com.facebook.react.PackageList

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Pressable } from 'react-native';
 
-const ExampleServerComponent = ({
+const ExampleRemoteComponent = ({
   onAction,
 }: {
   onAction: (action: any, payload: Record<string, any>) => void;
@@ -22,7 +22,7 @@ const ExampleServerComponent = ({
   }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.hello}> Hello Server Component</Text>
+      <Text style={styles.hello}> Hello Remote Component</Text>
       <Text style={styles.catFactsTitle}> Cat Facts </Text>
       <Text style={styles.facts}> {catFact} </Text>
       <Pressable style={styles.button} onPress={onPress}>
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExampleServerComponent;
+export default ExampleRemoteComponent;
