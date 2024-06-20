@@ -28,7 +28,7 @@ export default function HomeScreen({ navigation }) {
       </Text>
       <View style={styles.redBox}>
         <ServerComponent
-          source={{ uri: 'http://10.0.2.2:8080' }}
+          source={{ uri: 'http://127.0.0.1:8080' }}
           fallbackComponent={<FallbackComponent />}
           onAction={handleAction}
         />
