@@ -15,11 +15,11 @@ npm install react-native-remote-component
 ### Server Component
 
 ```tsx
-// Host Application Component using ServerComponent
+// Host Application Component using RemoteComponent
 
 import * as React from 'react';
 import { View } from 'react-native';
-import { ServerComponent } from 'react-native-remote-component';
+import { RemoteComponent } from 'react-native-remote-component';
 
 const FallbackComponent = () => {
   return (
@@ -32,7 +32,7 @@ const FallbackComponent = () => {
 export default function App() {
   return (
     <View style={{ flex: 1 }}>
-      <ServerComponent
+      <RemoteComponent
         source={{ uri: 'https://api.server.com/promotion-card.jsx' }}
         fallbackComponent={<FallbackComponent />}
       />
@@ -59,8 +59,8 @@ export const HomeComponent = () => {
 import * as React from 'react';
 import { View } from 'react-native';
 import {
-  ServerComponent,
-  preloadServerComponent,
+  RemoteComponent,
+  preloadRemoteComponent,
 } from 'react-native-remote-component';
 
 export default function App() {
@@ -69,7 +69,7 @@ export default function App() {
 
   const preloadComponent = async () => {
     try {
-      const { preload } = preloadServerComponent({});
+      const { preload } = preloadRemoteComponent({});
       await preload('https://api.server.com/player-card.jsx');
     } catch (e) {
       console.error('Failed to preload. ', e);
@@ -82,7 +82,7 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }}>
-      <ServerComponent
+      <RemoteComponent
         source={{ uri: 'https://api.server.com/player-card.jsx' }}
         fallbackComponent={<FallbackComponent />}
       />
@@ -100,7 +100,7 @@ Server Component requires transpiled \*.tsx (jsx) code to be executed at runtime
 Babel command to transpile tsx or jsx
 
 ```sh
-npx babel --presets=@babel/preset-env,@babel/preset-react ExampleServerComponent.tsx -o TranspiledExample.js
+npx babel --presets=@babel/preset-env,@babel/preset-react ExampleRemoteComponent.tsx -o TranspiledExample.js
 ```
 
 Transpiled source code must be served from URL to Server Component. Since server component executes transpiled source code at runtime, right now only vanilla react native components can be used in Server Component. For any third party library usage, import must be resolved at runtime. Resolving imports for third party dependencies can be done by providing `global` prop. For successful import resolution at runtime, the third party dependency must be part of original bundle shipped with host application.
@@ -113,7 +113,7 @@ import * as React from 'react';
 import { Button } from '@rneui/base';
 import { View } from 'react-native';
 
-const ServerComponent = () => {
+const RemoteComponent = () => {
   return (
     <View>
       <Button title="Hello World!" />;
@@ -130,7 +130,7 @@ To resolve import of `Button` at runtime in host application, `global` prop must
 const App = () => {
   return (
     <View>
-      <ServerComponent
+      <RemoteComponent
         global={{
           require: (moduleId: string) => {
             if (moduleId === '@rneui/base') {
@@ -152,7 +152,7 @@ const App = () => {
 - `fallbackComponent`
   - Fallback component provided to React Suspense
 - `errorComponent`
-  - Component to be used in case of error in ServerComponent
+  - Component to be used in case of error in RemoteComponent
 - `loadingComponent`
 - `onAction`
   - Callback with `action` and `payload`. Current supported actions are `NAVIGATE`, `IO`.
@@ -177,7 +177,7 @@ const handleAction = useCallback(
   [navigation]
 );
 
-<ServerComponent
+<RemoteComponent
   source={{ uri: 'https://api.server.com/card.jsx' }}
   fallbackComponent={<FallbackComponent />}
   onAction={handleAction}
@@ -189,7 +189,7 @@ Action emitted contains action type and payload.
 ```tsx
 // Example Server Component
 
-const ExampleServerComponent = ({
+const ExampleRemoteComponent = ({
   onAction,
 }: {
   onAction: (action: any, payload: Record<string, any>) => void;
