@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
 
-// const { preload } = preloadServerComponent({});
+// const { preload } = preloadRemoteComponent({});
 // (async () => {
 //   try {
 //     await preload('http://10.0.2.2:8080');

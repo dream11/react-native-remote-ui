@@ -1,12 +1,12 @@
 
 #ifdef RCT_NEW_ARCH_ENABLED
-#import "RNServerComponentSpec.h"
+#import "RNRemoteComponentSpec.h"
 
-@interface ServerComponent : NSObject <NativeServerComponentSpec>
+@interface RemoteComponent : NSObject <NativeRemoteComponentSpec>
 #else
 #import <React/RCTBridgeModule.h>
 
-@interface ServerComponent : NSObject <RCTBridgeModule>
+@interface RemoteComponent : NSObject <RCTBridgeModule>
 #endif
 
 @end

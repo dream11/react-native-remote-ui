@@ -1,5 +1,5 @@
 import { type RawAxiosResponseHeaders } from 'axios';
-import { RSCResponseHeaders } from './constants';
+import { RemoteComponentResponseHeaders } from './constants';
 
 export const getTTLFromResponseHeaders = (
   headers: Partial<RawAxiosResponseHeaders>
@@ -7,7 +7,9 @@ export const getTTLFromResponseHeaders = (
   if (headers === undefined) {
     return -1;
   }
-  const cacheControlHeader = headers[RSCResponseHeaders.ttl] as string;
+  const cacheControlHeader = headers[
+    RemoteComponentResponseHeaders.ttl
+  ] as string;
   // Extract TTL from Cache-Control header
   // Example: "max-age=1000"
   // value is in milliseconds

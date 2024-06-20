@@ -1,31 +1,31 @@
 import * as React from 'react';
-import { type RSCProps } from '../@types';
+import { type RemoteComponentProps } from '../@types';
 
 export default function RSC({
   source,
-  openRSC,
+  openRemoteComponent,
   fallbackComponent,
   loadingComponent = <React.Fragment />,
   errorComponent = <React.Fragment />,
   ...extras
-}: RSCProps): JSX.Element {
-  const [ServerComponent, setServerComponent] =
+}: RemoteComponentProps): JSX.Element {
+  const [RemoteComponent, setRemoteComponent] =
     React.useState<React.Component | null>(null);
 
   const [error, setError] = React.useState<Error | null>(null);
 
   const setComponent = React.useCallback(async () => {
     try {
-      if (typeof openRSC === 'function') {
-        const rsc = await openRSC(source);
-        return setServerComponent(() => rsc);
+      if (typeof openRemoteComponent === 'function') {
+        const rsc = await openRemoteComponent(source);
+        return setRemoteComponent(() => rsc);
       }
-      throw new Error(`[ServerComponent]: typeof openRSC should be function`);
+      throw new Error(`[RemoteComponent]: typeof openRSC should be function`);
     } catch (e) {
-      setServerComponent(() => null);
+      setRemoteComponent(() => null);
       setError(e as Error);
     }
-  }, [source, openRSC]);
+  }, [source, openRemoteComponent]);
 
   React.useEffect(() => {
     setComponent();
@@ -52,12 +52,12 @@ export default function RSC({
     return <></>;
   }, [loadingComponent]);
 
-  if (typeof ServerComponent === 'function') {
+  if (typeof RemoteComponent === 'function') {
     return (
       <React.Fragment>
         <React.Suspense fallback={<FallbackComponent />} />
         {/* @ts-ignore */}
-        <ServerComponent {...extras} />
+        <RemoteComponent {...extras} />
       </React.Fragment>
     );
   } else if (error) {

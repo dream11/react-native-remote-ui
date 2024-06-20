@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { ServerComponent } from 'react-native-remote-component';
+import { RemoteComponent } from 'react-native-remote-component';
 
 const FallbackComponent = () => {
   return (
@@ -27,8 +27,8 @@ export default function HomeScreen({ navigation }) {
         {'Component inside red box is rendered from server'}
       </Text>
       <View style={styles.redBox}>
-        <ServerComponent
-          source={{ uri: 'http://127.0.0.1:8080' }}
+        <RemoteComponent
+          source={{ uri: 'http://10.0.2.2:8080' }}
           fallbackComponent={<FallbackComponent />}
           onAction={handleAction}
         />

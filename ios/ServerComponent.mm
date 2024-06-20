@@ -1,6 +1,6 @@
-#import "ServerComponent.h"
+#import "RemoteComponent.h"
 
-@implementation ServerComponent
+@implementation RemoteComponent
 RCT_EXPORT_MODULE()
 
 // Example method
