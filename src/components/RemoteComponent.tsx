@@ -20,7 +20,9 @@ export default function RSC({
         const rsc = await openRemoteComponent(source);
         return setRemoteComponent(() => rsc);
       }
-      throw new Error(`[RemoteComponent]: typeof openRSC should be function`);
+      throw new Error(
+        `[RemoteComponent]: typeof openRemoteComponent should be function`
+      );
     } catch (e) {
       setRemoteComponent(() => null);
       setError(e as Error);
