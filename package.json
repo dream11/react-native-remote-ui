@@ -1,7 +1,7 @@
 {
-  "name": "react-native-server-component",
+  "name": "react-native-remote-component",
   "version": "0.1.0",
-  "description": "Server component for react native",
+  "description": "Remote component for react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -26,7 +26,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-server-component-example",
+    "example": "yarn workspace react-native-remote-component-example",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -41,14 +41,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dream11/react-native-server-component.git"
+    "url": "git+https://github.com/dream11/react-native-remote-component.git"
   },
   "author": "kunal.chavhan <kunal.chavhan@dream11.com> (https://github.com/kunalchavhan)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dream11/react-native-server-component/issues"
+    "url": "https://github.com/dream11/react-native-remote-component/issues"
   },
-  "homepage": "https://github.com/dream11/react-native-server-component#readme",
+  "homepage": "https://github.com/dream11/react-native-remote-component#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { ServerComponent } from 'react-native-server-component';
+import { ServerComponent } from 'react-native-remote-component';
 
 const FallbackComponent = () => {
   return (

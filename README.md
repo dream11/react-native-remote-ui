@@ -1,4 +1,4 @@
-# react-native-server-component
+# react-native-remote-component
 
 Server Component allow react-native (Host) applications to render remote (Server) components. Remote components are loaded through URI at runtime. Remotely loaded components behaves similar to the locally imported components.
 
@@ -7,7 +7,7 @@ Server Component are babel transpiled source code of tsx or jsx, which is execut
 ## Installation
 
 ```sh
-npm install react-native-server-component
+npm install react-native-remote-component
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ npm install react-native-server-component
 
 import * as React from 'react';
 import { View } from 'react-native';
-import { ServerComponent } from 'react-native-server-component';
+import { ServerComponent } from 'react-native-remote-component';
 
 const FallbackComponent = () => {
   return (
@@ -61,7 +61,7 @@ import { View } from 'react-native';
 import {
   ServerComponent,
   preloadServerComponent,
-} from 'react-native-server-component';
+} from 'react-native-remote-component';
 
 export default function App() {
   // make sure to preload before actual usage
