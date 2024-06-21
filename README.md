@@ -1,4 +1,4 @@
-# react-native-remote-component
+# react-native-remote-ui
 
 Remote Component allow react-native (Host) applications to render remote (Server) components. Remote components are loaded through URI at runtime. Remotely loaded components behaves similar to the locally imported components.
 
@@ -7,7 +7,7 @@ Remote Component are babel transpiled source code of tsx or jsx, which is execut
 ## Installation
 
 ```sh
-npm install react-native-remote-component
+npm install react-native-remote-ui
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ npm install react-native-remote-component
 
 import * as React from 'react';
 import { View } from 'react-native';
-import { RemoteComponent } from 'react-native-remote-component';
+import { RemoteComponent } from 'react-native-remote-ui';
 
 const FallbackComponent = () => {
   return (
@@ -61,7 +61,7 @@ import { View } from 'react-native';
 import {
   RemoteComponent,
   preloadRemoteComponent,
-} from 'react-native-remote-component';
+} from 'react-native-remote-ui';
 
 export default function App() {
   // make sure to preload before actual usage

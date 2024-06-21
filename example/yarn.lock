@@ -5646,15 +5646,15 @@ __metadata:
     express: ^4.17.1
     react: 18.2.0
     react-native: 0.73.6
-    react-native-remote-component: "link:../src"
+    react-native-remote-ui: "link:../src"
     react-native-safe-area-context: ^4.9.0
     react-native-screens: ^3.29.0
   languageName: unknown
   linkType: soft
 
-"react-native-remote-component@link:../src::locator=react-native-remote-component-example%40workspace%3A.":
+"react-native-remote-ui@link:../src::locator=react-native-remote-component-example%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "react-native-remote-component@link:../src::locator=react-native-remote-component-example%40workspace%3A."
+  resolution: "react-native-remote-ui@link:../src::locator=react-native-remote-component-example%40workspace%3A."
   languageName: node
   linkType: soft
 

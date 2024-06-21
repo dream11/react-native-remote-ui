@@ -1,5 +1,5 @@
 {
-  "name": "react-native-remote-component",
+  "name": "react-native-remote-ui",
   "version": "0.1.0",
   "description": "Remote component for react native",
   "main": "lib/commonjs/index",
@@ -41,14 +41,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dream11/react-native-remote-component.git"
+    "url": "git+https://github.com/dream11/react-native-remote-ui.git"
   },
   "author": "Dream11",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dream11/react-native-remote-component/issues"
+    "url": "https://github.com/dream11/react-native-remote-ui/issues"
   },
-  "homepage": "https://github.com/dream11/react-native-remote-component#readme",
+  "homepage": "https://github.com/dream11/react-native-remote-ui#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
