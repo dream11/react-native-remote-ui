@@ -80,3 +80,9 @@ example/.yarn/
 
 # npm
 .npmrc
+
+# Ignore transpiled files
+  example/server/Mocks/TranspiledExample.js
+
+# Ignore xcode env
+example/ios/.xcode.env.local

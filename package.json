@@ -43,7 +43,7 @@
     "type": "git",
     "url": "git+https://github.com/dream11/react-native-remote-component.git"
   },
-  "author": "kunal.chavhan <kunal.chavhan@dream11.com> (https://github.com/kunalchavhan)",
+  "author": "Dream11",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dream11/react-native-remote-component/issues"
