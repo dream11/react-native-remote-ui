@@ -2,11 +2,17 @@ export type RemoteComponentConfig = {
   readonly global?: any;
 };
 
-export type RemoteComponentSource =
-  | {
-      readonly uri: string;
-    }
-  | string;
+export interface URISource {
+  readonly uri: string;
+}
+
+export interface JSXSource {
+  readonly jsx: string;
+  readonly cacheKey: string;
+  readonly maxAge?: number;
+}
+
+export type RemoteComponentSource = URISource | JSXSource;
 
 export type RemoteComponentActions = 'NAVIGATE' | 'IO' | 'STATE_CHANGE';
 

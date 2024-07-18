@@ -1,6 +1,6 @@
 # react-native-remote-ui
 
-Remote Component allow react-native (Host) applications to render remote (Server) components. Remote components are loaded through URI at runtime. Remotely loaded components behaves similar to the locally imported components.
+React Native Remote UI allow react-native (Host) applications to render remote (Server) components. Remote components are loaded through URI at runtime. Remotely loaded components behaves similar to the locally imported components.
 
 Remote Component are babel transpiled source code of tsx or jsx, which is executed at runtime. This gives capability to update/change UI without app release. Remote Components can use hooks like `useState` and also react lifecycle events like `useEffect`.
 
@@ -148,7 +148,9 @@ const App = () => {
 ## Props
 
 - `source`
-  - URI to fetch component source
+  The source prop of the component can accept two types of values:
+  - String: When a string is provided, the component uses it directly without making an API call.
+  - Object: When an object with a uri property is provided `{ uri: string }`, the component makes an API call to fetch the source from the specified URI.
 - `fallbackComponent`
   - Fallback component provided to React Suspense
 - `errorComponent`
