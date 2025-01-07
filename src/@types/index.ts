@@ -6,7 +6,9 @@ export type RemoteComponentSource =
   | {
       readonly uri: string;
     }
-  | string;
+  | {
+      readonly code: string;
+    };
 
 export type RemoteComponentActions = 'NAVIGATE' | 'IO' | 'STATE_CHANGE';
 
