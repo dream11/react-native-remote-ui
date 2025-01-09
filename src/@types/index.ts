@@ -12,7 +12,7 @@ export type RemoteComponentSource =
 
 export type RemoteComponentActions = 'NAVIGATE' | 'IO' | 'STATE_CHANGE';
 
-export type RemoteComponentProps = {
+export type RemoteComponentProps<T = RemoteComponentActions> = {
   readonly global?: any;
   readonly source: RemoteComponentSource;
   readonly fallbackComponent?: JSX.Element;
@@ -20,10 +20,7 @@ export type RemoteComponentProps = {
   readonly errorComponent?: JSX.Element;
   readonly onError?: (error: Error) => void;
   readonly navigationRef?: React.Ref<any>;
-  readonly onAction?: (
-    action: RemoteComponentActions,
-    payload: Record<string, any>
-  ) => void;
+  readonly onAction?: (action: T, payload: Record<string, any>) => void;
   readonly openRemoteComponent?: (
     source: RemoteComponentSource
   ) => Promise<React.Component>;
