@@ -56,13 +56,16 @@ const buildComponent =
     ) => void;
   }) =>
   async (source: RemoteComponentSource): Promise<React.Component> => {
-    // TODO handle string source
     if (source && typeof source === 'object') {
-      const { uri } = source;
-      // TODO handle uri validation
-      if (typeof uri === 'string') {
+      if ('code' in source) {
+        // Handle directly provided transpiled JSX source
+        return createComponent(defaultGlobal)(source.code);
+      }
+
+      if ('uri' in source) {
+        // Handle URI-based fetching
         return new Promise<React.Component>((resolve, reject) =>
-          openURI(uri, { resolve, reject })
+          openURI(source.uri, { resolve, reject })
         );
       }
     }

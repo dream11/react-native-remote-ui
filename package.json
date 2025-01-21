@@ -1,6 +1,6 @@
 {
-  "name": "react-native-remote-ui",
-  "version": "0.1.0",
+  "name": "@d11/react-native-remote-ui",
+  "version": "0.2.0",
   "description": "Remote component for react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
