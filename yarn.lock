@@ -11354,6 +11354,7 @@ __metadata:
     turbo: ^1.10.7
     typescript: ^5.2.2
   peerDependencies:
+    axios: ">=0.26.1 <=1.6.7"
     react: "*"
     react-native: "*"
   languageName: unknown
