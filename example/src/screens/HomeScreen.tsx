@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet, Text, Platform } from 'react-native';
 import { RemoteComponent } from 'react-native-remote-ui';
+import { exampleTranspiledJSXCode } from './mocks/ExampleTranspiledJSXCode';
 
 const FallbackComponent = () => {
   return (
@@ -25,7 +26,9 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
-        {'Component inside red box is rendered from server'}
+        {
+          'Component inside the red box is rendered from the server using a URI to fetch its source dynamically'
+        }
       </Text>
       <View style={styles.redBox}>
         <RemoteComponent
@@ -34,6 +37,20 @@ export default function HomeScreen({ navigation }) {
               Platform.OS === 'ios'
                 ? 'http://127.0.0.1:8080'
                 : 'http://10.0.2.2:8080',
+          }}
+          fallbackComponent={<FallbackComponent />}
+          onAction={handleAction}
+        />
+      </View>
+      <Text style={styles.text}>
+        {
+          'Component inside the green box is rendered directly from a transpiled JSX code string provided to the component'
+        }
+      </Text>
+      <View style={styles.greenBox}>
+        <RemoteComponent
+          source={{
+            code: exampleTranspiledJSXCode,
           }}
           fallbackComponent={<FallbackComponent />}
           onAction={handleAction}
@@ -53,13 +70,19 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     margin: 16,
   },
+  greenBox: {
+    flex: 0.5,
+    borderWidth: 1,
+    borderColor: 'green',
+    margin: 16,
+  },
   text: {
     fontWeight: 'bold',
     textAlign: 'left',
     color: 'black',
     fontSize: 16,
     marginLeft: 16,
-    marginTop: 32,
+    marginTop: 16,
   },
   box: {
     width: 60,
