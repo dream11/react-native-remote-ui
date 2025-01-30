@@ -1,6 +1,6 @@
 {
   "name": "@d11/react-native-remote-ui",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Remote component for react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -83,6 +83,7 @@
     "@types/react": "^18.2.44"
   },
   "peerDependencies": {
+    "axios": "*",
     "react": "*",
     "react-native": "*"
   },
